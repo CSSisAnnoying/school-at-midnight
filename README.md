@@ -1,5 +1,5 @@
-<img style="text-align: center;" src="https://github.com/CSSisAnnoying/school-at-midnight/blob/main/Icons/128x128.png?raw=true" />
-<p style="text-align: center;">A dark mode extension for google classroom</p>
+<img align="center" src="https://github.com/CSSisAnnoying/school-at-midnight/blob/main/Icons/128x128.png?raw=true" />
+<p align="center" >A dark mode extension for google classroom</p>
 
 # School-At-Midnight
 
