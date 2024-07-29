@@ -21,7 +21,7 @@ As a student, you might often find yourself staying up late to finish assignment
 ### Method 1: Download zip
   - Click on the green button labeled code > local > download zip
 
-  <img src="https://github.com/user-attachments/assets/acd398c7-fffa-49d2-9f17-d7043544c999"></img>
+  <img style="border-radius: 50%" src="https://github.com/user-attachments/assets/acd398c7-fffa-49d2-9f17-d7043544c999"></img>
   ![Local and Codespaces Buttons](https://github.com/user-attachments/assets/e0e99763-5f73-4bfa-9da8-f5ae144e9d12)
   ![Download zip button](https://github.com/user-attachments/assets/1c6ad4f4-08cf-4d66-9050-8366d8b08823)
 
