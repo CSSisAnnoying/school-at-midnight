@@ -20,9 +20,11 @@ As a student, you might often find yourself staying up late to finish assignment
 
 ## Method 1: Download zip
   - Click on the green button labeled code > local > download zip
+
   ![Code Button](https://github.com/user-attachments/assets/acd398c7-fffa-49d2-9f17-d7043544c999)
   ![Local and Codespaces Buttons](https://github.com/user-attachments/assets/e0e99763-5f73-4bfa-9da8-f5ae144e9d12)
   ![Download zip button](https://github.com/user-attachments/assets/1c6ad4f4-08cf-4d66-9050-8366d8b08823)
+
   - Place the zip file in the directory you want the extension to be in
   - Extract the zip file
   - Delete the zip file if desired
@@ -34,9 +36,13 @@ As a student, you might often find yourself staying up late to finish assignment
 # Installation
   1. Go to your browser's extension page
   2. Enable developer mode
+
      ![Developer mode toggle](https://github.com/user-attachments/assets/4d784c2d-834b-4456-abfa-2cb290f014f4)
+
   4. Click on load unpacked
+
      ![Load unpacked button](https://github.com/user-attachments/assets/0c40092c-d1ae-4ec5-ac4d-263fffa41d3b)
+
   5. Select the folder where the chrome extension is.
 
 # Credits
