@@ -25,12 +25,12 @@ As a student, you might often find yourself staying up late to finish assignment
   ![Local and Codespaces Buttons](https://github.com/user-attachments/assets/e0e99763-5f73-4bfa-9da8-f5ae144e9d12)
   ![Download zip button](https://github.com/user-attachments/assets/1c6ad4f4-08cf-4d66-9050-8366d8b08823)
 
-  - Place the zip file in the directory you want the extension to be in
+  - Place the zip file in the [directory](## "commonly known as a folder") you want the extension to be in
   - Extract the zip file
   - Delete the zip file if desired
 ### Method 2: Cloning the repository
   - Open command prompt or whatever [CLI](## "Command Line Interface") you use
-  - Navigate to the directory you want the extension to be in ```cd path\to\folder```
+  - Navigate to the [directory](## "Commonly known as a folder") you want the extension to be in ```cd path\to\folder```
   - Paste in ```git clone https://github.com/CSSisAnnoying/school-at-midnight.git``` and run.
 
 ## Installation
