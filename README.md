@@ -29,7 +29,7 @@ As a student, you might often find yourself staying up late to finish assignment
   - Extract the zip file
   - Delete the zip file if desired
 ## Method 2: Cloning the repository
-  - Open command prompt or whatever [Command Line Interface](## "cli") you use
+  - Open command prompt or whatever [CLI](## "Command Line Interface") you use
   - Navigate to the directory you want the extension to be in ```cd path\to\folder```
   - Paste in ```git clone https://github.com/CSSisAnnoying/school-at-midnight.git``` and run.
 
