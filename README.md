@@ -47,4 +47,4 @@ As a student, you might often find yourself staying up late to finish assignment
 
 ## Credits
 
-The extension first started off as a [firefox extension](https://addons.mozilla.org/en-US/firefox/addon/very-cool-dark-mode/) by [@waymondrang](https://github.com/waymondrang). I had a few problems with the extension and since it doesn't really get maintained anymore so I decided to take matters into my own hands.
+The extension first started off as a [firefox extension](https://addons.mozilla.org/en-US/firefox/addon/very-cool-dark-mode/) by [@waymondrang](https://github.com/waymondrang). I had a few problems with the extension and since it doesn't get maintained that much anymore I decided to take matters into my own hands.
