@@ -7,7 +7,7 @@
 </b>
 
 > [!IMPORTANT]  
-> Since Google Classroom's 10 year anniversary they had added a dark mode option. This extension is no longer useful.
+> Google Classroom added a dark mode option to its 10 year anniversary update. This extension is no longer useful.
 
 # School-At-Midnight
 
