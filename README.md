@@ -6,9 +6,6 @@
   <p align="center">A dark mode extension for Google Classroom</p>
 </b>
 
-> [!IMPORTANT]  
-> Google Classroom added a dark mode option to its 10 year anniversary update. This extension is no longer useful.
-
 # School-At-Midnight
 
 As a student, you might often find yourself staying up late to finish assignments on websites like Google Classroom. However, when you open Google Classroom in the dark, you are greeted with the blinding light of light mode. With this dark mode extension, you can comfortably work in the dark.
