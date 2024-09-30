@@ -1,9 +1,11 @@
 :root {
     --neon-blue: rgb(4, 217, 255);
-    --background-dark: rgb(0, 0, 0);
+    --background-dark: rgb(10, 10, 10);
     --hover-dark: rgb(40, 40, 40);
+    --hover-dark-2: rgb(63, 63, 63);
     --background-light: rgb(255, 255, 255);
     --hover-light: rgb(246, 246, 246);
+    --hover-light-2: rgb(200, 200, 200);
 }
 
 .theme-switcher-icon {
@@ -21,10 +23,19 @@
     border-style: unset;
     border-radius: 50%;
     background-color: rgb(255, 255, 255);
+    margin-right: 15px;
 }
 
-.theme-switcher:hover {
+.theme-switcher:hover, .theme-switcher:focus-visible {
     background-color: var(--hover-light);
+}
+
+.theme-switcher:focus-visible {
+    outline: 1px solid #202124
+}
+
+.EXL71e {
+    border-radius: 0 0 .75rem .75rem !important;
 }
 
 .overlay {

@@ -1,7 +1,7 @@
 "use strict";
 
-console.log("%cSchool At Midnight🌚","font-size: 3rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px");
-console.log("%cReport any missed CSS or bugs to the github: https://github.com/CSSisHard/school-at-midnight ","font-size: 1.5rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 20px")
+console.log("%cSchool At Midnight🌚","font-size: 3rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 15px");
+console.log("%cReport any missed CSS or bugs to the github: https://github.com/CSSisAnnoying/school-at-midnight ","font-size: 1.5rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 15px")
 
 let darkModeState = localStorage.getItem("darkModeState");
 
@@ -36,6 +36,7 @@ themeSwitcher.innerHTML = `
 </svg>
 `
 themeSwitcherContainer.append(themeSwitcher);
+themeSwitcherContainer.insertBefore(themeSwitcher, themeSwitcherContainer.querySelector(".fB7J9c.kWv2Xb.QRiHXd"))
 
 let sunIcon = document.querySelector(".sun-icon");
 let moonIcon = document.querySelector(".moon-icon");
@@ -44,10 +45,12 @@ let overlay = document.createElement("div");
 overlay.setAttribute("class", "overlay");
 document.body.append(overlay);
 
-let darkModeStyle = document.createElement("style");
-darkModeStyle.setAttribute("class","dark-mode");
+let darkModeStyleElement = document.createElement("style");
+darkModeStyleElement.setAttribute("class","dark-mode");
 
-darkModeStyle.innerHTML = `body, nav, .joJglb, .ETRkCe {
+darkModeStyleElement.innerHTML = 
+`
+body, nav, .joJglb, .ETRkCe {
     color: #fff;
     background-color: var(--background-dark);
 }
@@ -130,7 +133,7 @@ wZTANe {
 .udxSmc, .xSP5ic {
     color: #ffffff5a;
 }
-.neggzd {
+.neggzd { /* RACIST */
     color: #ffffff1a;
 }
 .DShyMc-MTg0MjQ2MDIxMDky .ybOdnf:not(.RDPZE).iWO5td, .DShyMc-MTg0MjQ2MDIxMDky .ybOdnf:not(.RDPZE) .OA0qNb .LMgvRb[aria-selected="true"], .DShyMc-MTg0MjQ2MDIxMDky .NqFm6:not(.RDPZE) .tWfTvb [role="option"][aria-selected="true"], .DShyMc-MTkwMTE1MjU3MTA0 .ybOdnf:not(.RDPZE).iWO5td, .DShyMc-MTkwMTE1MjU3MTA0 .ybOdnf:not(.RDPZE) .OA0qNb .LMgvRb[aria-selected="true"], .DShyMc-MTkwMTE1MjU3MTA0 .NqFm6:not(.RDPZE) .tWfTvb [role="option"][aria-selected="true"], .DShyMc-MTkwMDQyNzU2MzY0 .ybOdnf:not(.RDPZE).iWO5td, .DShyMc-MTkwMDQyNzU2MzY0 .ybOdnf:not(.RDPZE) .OA0qNb .LMgvRb[aria-selected="true"], .DShyMc-MTkwMDQyNzU2MzY0 .NqFm6:not(.RDPZE) .tWfTvb [role="option"][aria-selected="true"] {
@@ -160,7 +163,7 @@ div.cnOaDb.I9OJHe:not(.vTcY1d) {
     background-color: var(--hover-dark) !important;
 }
 
-.snByac {
+:not([aria-disabled]) .snByac {
     color: white !important;
 }
 
@@ -168,28 +171,28 @@ div.cnOaDb.I9OJHe:not(.vTcY1d) {
     color: white;
 }
 
-ul, ol {
-    background-color: var(--background-dark) !important
+ul:not(.j70YMc ul), ol {
+    background var(--background-dark) !important
 }
 
 ul:focus {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
 }
 
 ol:focus {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
 }
 
 ul:focus-within {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
 }
 
 ol:focus-within {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
 }
 
 .lGIiYb {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
 }
 
 .google-material-icons {
@@ -200,8 +203,9 @@ ol:focus-within {
     border-top: .0625rem solid white;
 }
 
+/* textareaithink */
 [jsname="YPqjbf"] {
-    background-color: var(--background-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 
@@ -218,7 +222,7 @@ ol:focus-within {
 }
 
 .IzVHde {
-    background-color: var(--background-dark)
+    background: var(--background-dark)
 }
 
 .UvHKof .VnOHwf-Tvm9db {
@@ -226,21 +230,21 @@ ol:focus-within {
 }
 
 .TisIWb .kKn9Nc {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
     border-color: var(--hover-dark) !important;
 }
 
 .S3aLQd .bFjUmb-Ysl7Fe {
-	background-color: var(--hover-dark) !important;
+	background: var(--hover-dark) !important;
 }
 
 c-wiz.SSPGKf {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
     border-radius: 50px;
 }
 
 div.EHzcec.eejsDc {
-    background-color: #0f0f0f;
+    background: #0f0f0f;
 }
 
 .Rq5Gcb {
@@ -249,35 +253,35 @@ div.EHzcec.eejsDc {
 }
 
 .ZoT1D:hover.idtp4e {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .qk0lee:focus:after {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .S3aLQd .UISY8d-Ysl7Fe:hover {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .S3aLQd .P3W0Dd-Ysl7Fe:focus {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .UvHKof .UISY8d-Ysl7Fe:hover {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .UvHKof .P3W0Dd-Ysl7Fe:focus {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .zvzLKc .P3W0Dd-Ysl7Fe:focus {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .zvzLKc .bFjUmb-Ysl7Fe, .Mupove .bFjUmb-Ysl7Fe, .UvHKof .bFjUmb-Ysl7Fe, .WFUiUb .bFjUmb-Ysl7Fe, .ee1HBc .bFjUmb-Ysl7Fe, .g2MItd .bFjUmb-Ysl7Fe, .Ag4wUb .bFjUmb-Ysl7Fe, .ZoT1D:focus-within.idtp4e {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .GWZ7yf {
@@ -288,32 +292,36 @@ div.EHzcec.eejsDc {
     box-shadow: var(--neon-blue) 0px 4px 6px, var(--neon-blue) 3px 4px 5px
 }
 
+.nCP5yc:disabled > .VfPpkd-vQzf8d {
+    color: var(--hover-dark-2);
+}
+
 .aSjeL.aSjeL td {
     background: var(--hover-dark);
 }
 
 .TJtJXb td {
-    background-color: var(--hover-dark);
+    background: var(--hover-dark);
 }
 
 .DC55n td {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
 }
  
 a.tX9u1b:active {
-    background-color: #1f1f1f;
+    background: #1f1f1f;
 }
 
 span.tX9u1b:hover span.Rq5Gcb {
-    background-color: #1f1f1f;
+    background: #1f1f1f;
 }
 
 a.tX9u1b:hover {
-    background-color: #1f1f1f;
+    background: #1f1f1f;
 }
 
 a.QgddUc .tX9u1b:focus {
-    background-color: #1f1f1f;
+    background: #1f1f1f;
 }
 
 .RMrItf, .Kqfayb {
@@ -321,11 +329,11 @@ a.QgddUc .tX9u1b:focus {
 }
 
 .OK1tJe {
-    background-color: var(--hover-dark);
+    background: var(--hover-dark);
 }
 
 .z80M1.FwR7Pc {
-    background-color: var(--hover-dark);
+    background: var(--hover-dark);
 }
 
 .UjXaMc {
@@ -337,15 +345,15 @@ a.QgddUc .tX9u1b:focus {
 }
 
 .lnAGpc {
-    background-color: var(--hover-dark);
+    background: var(--hover-dark);
 }
 
 .TdC1bb, .feojCc {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
 }
 
 .WagS8 {
-    background-color: var(--background-dark);
+    background: var(--background-dark);
 }
 
 .ETRkCe {
@@ -353,58 +361,178 @@ a.QgddUc .tX9u1b:focus {
 }
 
 .KEDCCd {
-    background-color: var(--background-dark) !important;
+    background: var(--background-dark) !important;
 }
 
 .Tabkde .OX4Vcb {
-    background-color: var(--background-dark) !important;
+    background: var(--background-dark) !important;
 }
 
 .EY8ABd .VfPpkd-z59Tgd {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .theme-switcher {
-    background-color: var(--background-dark) !important;
+    background: var(--background-dark) !important;
 }
 
-.theme-switcher:hover {
-    background-color: var(--hover-dark) !important;
+.theme-switcher:hover, .theme-switcher:focus-visible {
+    background: var(--hover-dark) !important;
+}
+
+.theme-switcher:focus-visible {
+    outline: 1px solid #a5a7ad;
 }
 
 .gb_Mc .gb_Vd.gb_re button:hover svg, .gb_Vd button:hover svg, .gb_d:hover {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
 }
 
 .VfPpkd-Bz112c-LgbsSe.yHy1rc.eT1oJ.mN1ivc.sEZiv.TYHMlb.oxacD:hover, .VfPpkd-Bz112c-LgbsSe.yHy1rc.eT1oJ.mN1ivc.sEZiv.TYHMlb.oxacD:focus {
-    background-color: var(--hover-dark) !important;
+    background: var(--hover-dark) !important;
     border-radius: 50%;
 }
 
 div.XfQwid.lziZub.xd70xe.n0p5v.V8apv {
-    background-color: var(--hover-dark);
+    background: var(--hover-dark);
 }
 
 .VfPpkd-kBDsod rect, .VfPpkd-kBDsod path, .VfPpkd-kBDsod polygon  {
     color: var(--neon-blue);
 }
 
-}`
+.Gfjxy.bFjUmb-Ysl7Fe.Fh209b, .Gfjxy .bFjUmb-Ysl7Fe.Fh209b {
+	background: var(--hover-dark);
+}
+
+.WmnPA:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me) {
+    background: var(--hover-dark);
+}
+
+.WmnPA:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me) .VfPpkd-fmcmS-wGMbrd {
+    color: white;
+    background: var(--hover-dark);
+}
+.WmnPA:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me) .VfPpkd-fmcmS-wGMbrd::placeholder {
+    color: rgb(200, 200, 200);
+}
+
+.RU1zt.bFjUmb-Ysl7Fe.Fh209b, .RU1zt .bFjUmb-Ysl7Fe.Fh209b {
+    background: var(--hover-dark);
+}
+
+.ez2f3.bFjUmb-Ysl7Fe.Fh209b, .ez2f3 .bFjUmb-Ysl7Fe.Fh209b {
+    background: rgb(147, 111, 147);
+}
+
+.utl4Ze.bFjUmb-Ysl7Fe.Fh209b, .utl4Ze .bFjUmb-Ysl7Fe.Fh209b {
+    background: rgb(129, 149, 169);
+}
+
+.IqjVqf.bFjUmb-Ysl7Fe.Fh209b, .IqjVqf .bFjUmb-Ysl7Fe.Fh209b {
+    background: rgb(187, 161, 152);
+}
+
+.yiBaHe.bFjUmb-Ysl7Fe.Fh209b, .yiBaHe .bFjUmb-Ysl7Fe.Fh209b {
+    background: rgb(123, 173, 140); 
+}
+
+.kiR7tf.bFjUmb-Ysl7Fe.Fh209b, .kiR7tf .bFjUmb-Ysl7Fe.Fh209b {
+    background: rgb(140, 168, 177);
+}
+
+.KrJjFb.bFjUmb-Ysl7Fe.Fh209b, .KrJjFb .bFjUmb-Ysl7Fe.Fh209b {
+    background: rgb(150, 139, 173)
+}
+
+.gb_A:hover, .gb_A:focus-visible {
+    background: var(--hover-dark);
+}
+
+.gb_A:focus-visible {
+    outline: 1px solid #a5a7ad;
+}
+
+.N6nSod {
+    background: var(--hover-dark);
+}
+
+.Iwp0Ue:not(.xp2dJ):not(.rZXyy):hover.rXdid, .Iwp0Ue:not(.xp2dJ):not(.rZXyy):hover.h7Ww0, .Iwp0Ue:not(.xp2dJ):not(.rZXyy):hover .rXdid, .Iwp0Ue:not(.xp2dJ):not(.rZXyy):hover .h7Ww0, .xWw7yd:hover.rXdid, .xWw7yd:hover.h7Ww0, .xWw7yd:hover .rXdid, .xWw7yd:hover .h7Ww0 {
+    background: var(--hover-dark);
+}
+
+.go6aXd.xAKnLc, .fum4Tb.xAKnLc, tbody .vvqDLc.xAKnLc {
+    background: var(--hover-dark);
+}
+
+.go6aXd, .fum4Tb, tbody .vvqDLc {
+    background: var(--background-dark);
+}
+
+.fHar6b, .RUkyfb, thead .vvqDLc {
+    background: var(--background-dark);
+}
+
+.q1Kmyc.cjzpkc-Wvd9Cc.GngEL {
+    overflow: hidden;
+}
+
+.tAVIoc.I9OJHe {
+    background: var(--hover-dark);
+}
+
+.vnnr5e:not(.RDPZE):hover .I9OJHe, .vnnr5e:not(.RDPZE):hover .CIy9F {
+    background: var(--hover-dark-2) !important;
+}
+
+.kYtXye .UISY8d-Ysl7Fe:hover, .kYtXye.MymH0d:hover .UISY8d-Ysl7Fe, .kYtXye .MymH0d:hover .UISY8d-Ysl7Fe {
+    background: rgb(129, 149, 169);
+}
+
+.NhkgIc.VnOHwf-Tvm9db.xSP5ic.NMm5M {
+    fill: white;
+}
+
+.gHz6xd.Aopndd.rZXyy:hover {
+    outline: 1px var(--hover-light-2) solid;
+}
+
+.EN2Rfc:not(.RDPZE) .XTO5bf.y7OZL {
+    background: var(--hover-dark-2);
+    border-radius: 50%;
+}
+
+.fyExH {
+    background: rgb(94 136 177);
+}
+
+.Ne8lhe .VfPpkd-muHVFf-bMcfAe:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.VfPpkd-YQoJzd {
+    border-color: white;
+}
+
+.Ne8lhe:hover .VfPpkd-muHVFf-bMcfAe:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.VfPpkd-YQoJzd {
+    border-color: var(--hover-light);
+}
+
+.Ne8lhe.VfPpkd-ksKsZd-mWPk3d-OWXEXe-AHe6Kc-XpnDCe .VfPpkd-muHVFf-bMcfAe:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.VfPpkd-YQoJzd, .Ne8lhe:not(.VfPpkd-ksKsZd-mWPk3d):focus .VfPpkd-muHVFf-bMcfAe:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.VfPpkd-YQoJzd {
+    border-color: var(--hover-light);
+}
+`;
 
 function changeTheme(theme) {
     if (theme == "Dark") {
-        document.body.insertBefore(darkModeStyle,document.body.firstChild);
+        document.body.insertBefore(darkModeStyleElement,document.body.firstChild);
         sunIcon.style.setProperty("display", "none");
         moonIcon.style.setProperty("display", "block");
     } else if (theme == "Light") {
-        darkModeStyle.remove();
+        darkModeStyleElement.remove();
         sunIcon.style.setProperty("display", "block");
         moonIcon.style.setProperty("display", "none");
     }
 
-    overlay.style.setProperty("background-color","transparent");
+    overlay.style.setProperty("background", "transparent");
     overlay.style.setProperty("pointer-events", "none");
-    overlay.removeEventListener("transitionend",changeTheme,true);
+    overlay.removeEventListener("transitionend", changeTheme, true);
 }
 
 function toggleValue() {
@@ -420,14 +548,14 @@ function toggleValue() {
 function toggleTheme() {
     if (darkModeState === String(true)) {
         toggleValue()
-        overlay.style.setProperty("background-color","white");
+        overlay.style.setProperty("background","white");
         overlay.style.setProperty("pointer-events", "all");
         overlay.addEventListener("transitionend",() => {
             changeTheme("Light");
         });
     } else if (darkModeState === String(false)) {
         toggleValue()
-        overlay.style.setProperty("background-color","black");
+        overlay.style.setProperty("background","black");
         overlay.style.setProperty("pointer-events", "all");
         overlay.addEventListener("transitionend",() => {
             changeTheme("Dark");
@@ -443,7 +571,7 @@ if (darkModeState === String(false)) {
 } else if (darkModeState === String(true)) {
     sunIcon.style.setProperty("display", "none");
     moonIcon.style.setProperty("display", "block");
-    document.body.insertBefore(darkModeStyle, document.body.firstChild);
+    document.body.insertBefore(darkModeStyleElement, document.body.firstChild);
     
-    console.log("%cDark Mode Loaded Successfully","font-size: 1rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 5px;")
+    console.log("%cDark Mode Loaded Successfully","font-size: 1rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background: black; border-radius: 5px;")
 }    

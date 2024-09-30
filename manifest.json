@@ -15,10 +15,12 @@
                 "https://classroom.google.com/*"
             ],
             "js": [
-                "index.js"
+                "./Renderer/main.js",
+                "./Renderer/darkModeStyle.js",
+                "./Renderer/themeSwitcher.js"
             ],
             "css": [
-                "miscellaneous.css"
+                "./Renderer/miscellaneous.css"
             ]
         }
     ],
