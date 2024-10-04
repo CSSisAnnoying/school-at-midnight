@@ -519,4 +519,16 @@ export const darkModeStyles =
     .ReCbLb:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me) .VfPpkd-uusGie-fmcmS {
         color: white;
     }
+
+    .WufxEd .ynt9Dc {
+        background: var(--hover-dark-2);
+    }
+
+    .WufxEd .ynt9Dc .VfPpkd-WLXbod {
+        background: var(--hover-dark-2);
+    }
+
+    .geqPvd .VfPpkd-Rj7Y9b {
+        color: white;
+    }
 `;
