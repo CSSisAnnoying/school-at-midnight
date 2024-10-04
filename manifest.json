@@ -9,23 +9,32 @@
         "128": "/Icons/128x128.png",
         "256": "/Icons/256x256.png"
     },
+    "background": {
+        "service_worker": "./Scripts/Background/background.js",
+        "type": "module"
+    },
+    "action": {
+        "default_popup": "./Popup/popup.html"
+    },
     "content_scripts": [
         {
             "matches": [
                 "https://classroom.google.com/*"
             ],
             "js": [
-                "./Renderer/main.js",
-                "./Renderer/darkModeStyle.js",
-                "./Renderer/themeSwitcher.js"
+                "./Scripts/Render/main.js",
+                "./Scripts/Render/themeSwitcher.js",
+                "./Scripts/Render/fadeAnimation.js",
+                "./Scripts/Render/notifications.js"
             ],
             "css": [
-                "./Renderer/miscellaneous.css"
+                "./Scripts/Render/miscellaneous.css"
             ]
         }
     ],
     "permissions": [
         "storage",
+        "tabs",
         "activeTab"
     ]
 }
