@@ -14,7 +14,6 @@
     }
 
     chrome.runtime.onMessage.addListener((request, sender, response) => {
-        console.log("MAKE");
         if (request.action === "createNotification") {
             createNotification(request.html);
         }
@@ -41,7 +40,6 @@
     }
 
     const createNotification = (html) => {
-        console.log(html);
         const notification = document.createElement("div");
         notification.setAttribute("class", "notification");
         notification.innerHTML = `

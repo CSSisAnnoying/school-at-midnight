@@ -42,8 +42,6 @@
     }, 2000);
 
     saveData("get").then((value) => {
-        console.log("HI", value, typeof value);
-
         if (value == null || value === undefined) {
             saveData("set", false);
         }
