@@ -12,7 +12,6 @@ const messageFunctions = {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     const messageFunction = messageFunctions[message.message];
     if (messageFunction) {
-        console.log("ASDIFJSDFG", message);
         messageFunction({ message, sender, sendResponse });
     } else {
         console.warn(`No handler for message: ${message.message}`);
