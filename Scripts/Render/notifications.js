@@ -30,7 +30,12 @@
         notification.style.setProperty("opacity", "0");
         notification.addEventListener("transitionend", (e) => {
             if (e.propertyName === "translate") {
-                notification.remove();
+                notification.style.setProperty("height", "0");
+                notification.addEventListener("transitionend", (e) => {
+                    if (e.propertyName === "height") {
+                        notification.remove();
+                    }
+                })
             }
         });
     }
