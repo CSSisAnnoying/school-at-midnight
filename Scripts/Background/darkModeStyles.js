@@ -531,4 +531,16 @@ export const darkModeStyles =
     .geqPvd .VfPpkd-Rj7Y9b {
         color: white;
     }
+
+    .ndfHFb-c4YZDc-xl07Ob, .ndfHFb-c4YZDc-mg9Pef {
+        background: var(--hover-dark);
+    }
+
+    .ndfHFb-c4YZDc-xl07Ob-tJHJj {
+        color: white;
+    }
+
+    .ndfHFb-c4YZDc-i5oIFb .ndfHFb-c4YZDc-j7LFlb-sn54Q {
+        background: var(--hover-dark-2);
+    }
 `;
