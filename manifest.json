@@ -1,40 +1,42 @@
 {
-    "name": "School At Midnight",
-    "version": "0.1",
-    "description": "Adds dark mode to google classroom",
-    "manifest_version": 3,
-    "icons": {
-        "16": "/Icons/16x16.png",
-        "48": "/Icons/48x48.png",
-        "128": "/Icons/128x128.png",
-        "256": "/Icons/256x256.png"
-    },
-    "background": {
-        "service_worker": "./Scripts/Background/background.js",
-        "type": "module"
-    },
-    "action": {
-        "default_popup": "./Popup/popup.html"
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "https://classroom.google.com/*"
-            ],
-            "js": [
-                "./Scripts/Render/main.js",
-                "./Scripts/Render/themeSwitcher.js",
-                "./Scripts/Render/fadeAnimation.js",
-                "./Scripts/Render/notifications.js"
-            ],
-            "css": [
-                "./Scripts/Render/miscellaneous.css"
-            ]
-        }
-    ],
-    "permissions": [
-        "storage",
-        "tabs",
-        "activeTab"
-    ]
+  "name": "School At Midnight",
+  "version": "0.1",
+  "description": "Adds dark mode to Google Classroom",
+  "manifest_version": 3,
+  "icons": {
+    "16": "/Icons/16x16.png",
+    "48": "/Icons/48x48.png",
+    "128": "/Icons/128x128.png",
+    "256": "/Icons/256x256.png"
+  },
+  "background": {
+    "service_worker": "./Scripts/Background/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "./Popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://classroom.google.com/*"
+      ],
+      "js": [
+        "./Scripts/Render/main.js",
+        "./Scripts/Render/themeSwitcher.js",
+        "./Scripts/Render/fadeAnimation.js",
+        "./Scripts/Render/notifications.js"
+      ],
+      "css": [
+        "./Scripts/Render/miscellaneous.css"
+      ]
+    }
+  ],
+  "host_permissions": [
+    "https://classroom.google.com/*"
+  ],
+  "permissions": [
+    "storage",
+    "tabs"
+  ]
 }
