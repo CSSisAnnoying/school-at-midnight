@@ -6,7 +6,7 @@
                 if (element) {
                     resolve(element);
                 } else {
-                    requestAnimationFrame(check); // Check on the next animation frame
+                    requestAnimationFrame(check);
                 }
             };
             check();
@@ -43,7 +43,7 @@
         const notification = document.createElement("div");
         notification.setAttribute("class", "notification");
         notification.innerHTML = `
-            <button>X</button>
+            <button aria-label="Close notification">X</button>
             <img src="${chrome.runtime.getURL("Icons/128x128.png")}"></img>
             <p></p>
         `;
