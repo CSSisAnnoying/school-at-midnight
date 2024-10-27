@@ -1,5 +1,7 @@
 const themeSwitcherContainer = document.querySelector(".Mtd4hb.QRiHXd");
 const themeSwitcher = document.createElement("button");
+themeSwitcher.setAttribute("aria-label", "Switch to dark mode");
+themeSwitcher.setAttribute("aria-pressed", "false");
 themeSwitcher.setAttribute("class", "theme-switcher");
 themeSwitcher.innerHTML = `
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -23,24 +25,35 @@ themeSwitcher.innerHTML = `
    </g>
 </svg>
 `
-themeSwitcherContainer.append(themeSwitcher);
 themeSwitcherContainer.insertBefore(themeSwitcher, themeSwitcherContainer.querySelector(".fB7J9c.kWv2Xb.QRiHXd"));
 
 const sunIcon = themeSwitcher.querySelector(".sun-icon");
 const moonIcon = themeSwitcher.querySelector(".moon-icon");
 
+const statusDiv = document.createElement("div");
+statusDiv.setAttribute("class", "status");
+statusDiv.setAttribute("aria-live", "polite");
+document.body.append(statusDiv);
+document.body.insertBefore(statusDiv, document.body.firstChild);
+
+const updateIcon = (icon, visible) => {
+   icon.style.setProperty("display", visible ? "block" : "none");
+   icon.setAttribute("aria-hidden", !visible);
+}
+
 chrome.runtime.onMessage.addListener((message) => {
    if (message.message === "setTheme") {
-      // if (message.inputState === "begin") {
-      //    themeSwitcher.setAttribute("disabled", true);
-      // } else {
-      //    themeSwitcher.removeAttribute("disabled");
-      // }
-      
+      const isDarkMode = message.isDarkMode;
       if (message.inputState === "end") {
-         const isDarkMode = message.isDarkMode;
-         sunIcon.style.setProperty("display", isDarkMode ? "none" : "block");
-         moonIcon.style.setProperty("display", isDarkMode ? "block" : "none");
+         updateIcon(sunIcon, !isDarkMode);
+         updateIcon(moonIcon, isDarkMode);
+         themeSwitcher.setAttribute("aria-label", `Switch to ${isDarkMode ? "light" : "dark"} mode`);
+         themeSwitcher.setAttribute("aria-pressed", isDarkMode);
+         statusDiv.innerText = `Switched to ${isDarkMode ? "dark" : "light"} mode`;
+         themeSwitcher.setAttribute("aria-pressed", isDarkMode);
+      } else {
+         themeSwitcher.setAttribute("aria-label", "Animating...");
+         themeSwitcher.setAttribute("aria-pressed", isDarkMode);
       }
    }
 });
