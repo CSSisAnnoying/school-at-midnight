@@ -5,47 +5,85 @@
     console.log("%cSchool At Midnight🌚", "color: white; font-size: 3rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 15px");
     console.log("%cReport any missed CSS or bugs to the github: https://github.com/CSSisAnnoying/school-at-midnight ", "color: white; font-size: 1.5rem; font-family: courier; font-smooth: never; -webkit-font-smoothing: none; background-color: black; border-radius: 15px")
 
-    function saveData(action, newValue) {
+    let isDarkMode = false;
+
+    async function darkModeHandler(action, newValue) {
         return new Promise((resolve, reject) => {
-            action = action.toLowerCase();
-            if (action === "set") {
-                chrome.storage.sync.set({ darkMode: newValue }, () => {
-                    resolve(); // Resolve when set is complete
-                });
-            } else if (action === "get") {
-                chrome.storage.sync.get(["darkMode"], (result) => {
-                    resolve(result.darkMode); // Resolve with the retrieved value
-                });
-            }
+            chrome.runtime.sendMessage({ message: "saveData", action, key: "darkMode", value: newValue }, ((response) => {
+                if (action === "get") {
+                    resolve(response.darkMode);
+                    return;
+                }
+                resolve();
+                isDarkMode = newValue;
+            }));
         });
     }
 
-    function createNotification(html) {
-        chrome.runtime.sendMessage({ message: "createNotification", html })
+    function createNotification(html, isNode) {
+        isNode = isNode ? isNode : false;
+        chrome.runtime.sendMessage({ message: "createNotification", html, isNode });
     }
+
+    {
+        const value = await darkModeHandler("get");
+        if (value === null || value === undefined) {
+            darkModeHandler("set", false);
+        }
+        isDarkMode = value;
+    }
+
     setTimeout(() => {
         createNotification("School At Midnight loaded!");
 
-        const div = document.createElement("div");
-        const span = document.createElement("span");
-        const a = document.createElement("a");
-        span.innerText = "Report any missed CSS or bugs to the github: ";
-        a.innerText = "https://github.com/CSSisAnnoying/school-at-midnight"
-        a.setAttribute("href", "https://github.com/CSSisAnnoying/school-at-midnight");
-        a.setAttribute("target", "_blank");
-        a.setAttribute("rel", "noopener noreferrer");
-        div.setAttribute("class", "dasoijdaoisd")
-        div.append(span);
-        div.append(a);
-        document.body.append(div);
-        createNotification(".dasoijdaoisd");
-    }, 2000);
+        {
+            const div = document.createElement("div");
+            div.innerHTML = `
+                <span>Report any missed CSS or bugs to the github: </span>
+                <a href="https://github.com/CSSisAnnoying/school-at-midnight" target="_blank" rel="noopener noreferrer">https://github.com/CSSisAnnoying/school-at-midnight</a>
+            `
+            div.setAttribute("class", "dasoijdaoisd")
 
-    saveData("get").then((value) => {
-        if (value == null || value === undefined) {
-            saveData("set", false);
+            document.body.append(div);
+            createNotification(".dasoijdaoisd", true);
         }
-    });
+        {
+            const className = "dasoijdaoisd2";
+            const styles = document.createElement("style");
+            styles.textContent = `
+                .${className} button {
+                    text-decoration: underline;
+                    color: var(--neon-blue);
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    transition: filter 200ms ease;
+                    filter: brightness(1);
+                    padding: 0;
+                }   
+
+                .${className} button:hover {
+                    filter: brightness(0.8);
+                }
+                `;
+
+            const div = document.createElement("div");
+            div.innerHTML = `
+                <span>You can disable these notifications in the </span>
+                <button>settings.</button>
+            `;
+            div.setAttribute("class", className);
+
+            div.querySelector("button").addEventListener("click", () => {
+                chrome.runtime.sendMessage({ message: "openPopup" });
+            });
+
+            div.appendChild(styles);
+            document.body.appendChild(div);
+
+            createNotification("." + className, true);
+        }
+    }, 2000);
 
     async function waitForElement(selector) {
         return new Promise((resolve) => {
@@ -63,68 +101,52 @@
 
     const themeSwitcher = await waitForElement(".theme-switcher")
 
-    const sunIcon = themeSwitcher.querySelector(".sun-icon");
-    const moonIcon = themeSwitcher.querySelector(".moon-icon");
-
-    const fader = await waitForElement(".fader");
-
     const darkModeStyleElement = document.createElement("style");
     darkModeStyleElement.setAttribute("class", "dark-mode");
     chrome.runtime.sendMessage({ message: "getDarkModeStyles" }, (response) => {
-        darkModeStyleElement.innerHTML = response;
+        darkModeStyleElement.textContent = response;
     })
 
-    function changeTheme(theme) {
-        if (theme == "Dark") {
-            document.body.insertBefore(darkModeStyleElement, document.body.firstChild);
-            sunIcon.style.setProperty("display", "none");
-            moonIcon.style.setProperty("display", "block");
-        } else if (theme == "Light") {
-            darkModeStyleElement.remove();
-            sunIcon.style.setProperty("display", "block");
-            moonIcon.style.setProperty("display", "none");
-        }
-
-        fader.style.setProperty("background", "transparent");
-        fader.style.setProperty("pointer-events", "none");
-        fader.removeEventListener("transitionend", changeTheme, true);
+    function toggleTheme() {
+        // if (themeSwitcher.getAttribute("disabled")) return;
+        isDarkMode = !isDarkMode;
+        darkModeHandler("set", isDarkMode);
     }
 
-    async function toggleTheme() {
-        let isDarkMode = await saveData("get");
-        if (isDarkMode) {
-            saveData("set", false);
-            fader.style.setProperty("background", "white");
-            fader.style.setProperty("pointer-events", "all");
-            fader.addEventListener("transitionend", () => {
-                changeTheme("Light");
-            });
-        } else {
-            saveData("set", true);
-            fader.style.setProperty("background", "black");
-            fader.style.setProperty("pointer-events", "all");
-            fader.addEventListener("transitionend", () => {
-                changeTheme("Dark");
-            });
+    chrome.runtime.onMessage.addListener((message) => {
+        if (message.message === "setTheme") {
+            isDarkMode = message.isDarkMode;
+            if (message.inputState === "end") {
+                if (message.isDarkMode) {
+                    document.body.insertBefore(darkModeStyleElement, document.body.firstChild);
+                } else {
+                    darkModeStyleElement.remove();
+                }
+            }
         }
+    });
+
+    function setTheme(isDarkMode, inputState) {
+        chrome.runtime.sendMessage({ message: "setTheme", isDarkMode, inputState });
     }
 
-    themeSwitcher.onclick = await toggleTheme
+    chrome.storage.onChanged.addListener((changes, namespace) => {
+        if (namespace !== "sync") return;
+        if (changes.darkMode === undefined) return;
+        let isDarkMode = changes.darkMode;
+        if (isDarkMode.newValue === isDarkMode.oldValue) return;
+        if (isDarkMode.oldValue === undefined) return;
+        isDarkMode = isDarkMode.newValue;
 
-    {
-        let isDarkMode = await saveData("get")
-        if (!isDarkMode) {
-            sunIcon.style.setProperty("display", "block");
-            moonIcon.style.setProperty("display", "none");
-        } else {
-            sunIcon.style.setProperty("display", "none");
-            moonIcon.style.setProperty("display", "block");
-            document.body.insertBefore(darkModeStyleElement, document.body.firstChild);
+        setTheme(isDarkMode, "begin");
+    });
 
-            setTimeout(() => {
-                createNotification("Dark mode loaded successfully");
-            }, 1900);
-        }
-    }
+    themeSwitcher.addEventListener("click", toggleTheme);
+
+    setTheme(isDarkMode, "end");
+    setTimeout(() => {
+        createNotification("Dark mode loaded successfully!");
+    }, 1900);
+    console.log("Dark mode loaded successfully!");
 
 })();

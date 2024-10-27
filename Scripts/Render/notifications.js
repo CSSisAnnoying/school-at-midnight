@@ -13,9 +13,9 @@
         });
     }
 
-    chrome.runtime.onMessage.addListener((request, sender, response) => {
-        if (request.action === "createNotification") {
-            createNotification(request.html);
+    chrome.runtime.onMessage.addListener((request) => {
+        if (request.message === "createNotification") {
+            createNotification(request.html, request.isNode);
         }
     })
 
@@ -39,21 +39,20 @@
         });
     }
 
-    const createNotification = (html) => {
+    const createNotification = (html, isNode) => {
         const notification = document.createElement("div");
         notification.setAttribute("class", "notification");
         notification.innerHTML = `
             <button>X</button>
-            <img src="https://github.com/CSSisAnnoying/school-at-midnight/raw/main/Icons/128x128.png?raw=true"></img>
+            <img src="${chrome.runtime.getURL("Icons/128x128.png")}"></img>
             <p></p>
         `;
         const p = notification.querySelector("p");
         const button = notification.querySelector("button");
 
-        try {
-            const element = document.querySelector(html);
-            p.append(element != null ? element : html);
-        } catch (err) {
+        if (isNode) {
+            p.append(document.querySelector(html));
+        } else {
             p.append(html);
         }
         notificationContainer.append(notification);
