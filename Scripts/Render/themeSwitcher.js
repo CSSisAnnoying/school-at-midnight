@@ -25,3 +25,22 @@ themeSwitcher.innerHTML = `
 `
 themeSwitcherContainer.append(themeSwitcher);
 themeSwitcherContainer.insertBefore(themeSwitcher, themeSwitcherContainer.querySelector(".fB7J9c.kWv2Xb.QRiHXd"));
+
+const sunIcon = themeSwitcher.querySelector(".sun-icon");
+const moonIcon = themeSwitcher.querySelector(".moon-icon");
+
+chrome.runtime.onMessage.addListener((message) => {
+   if (message.message === "setTheme") {
+      // if (message.inputState === "begin") {
+      //    themeSwitcher.setAttribute("disabled", true);
+      // } else {
+      //    themeSwitcher.removeAttribute("disabled");
+      // }
+      
+      if (message.inputState === "end") {
+         const isDarkMode = message.isDarkMode;
+         sunIcon.style.setProperty("display", isDarkMode ? "none" : "block");
+         moonIcon.style.setProperty("display", isDarkMode ? "block" : "none");
+      }
+   }
+});

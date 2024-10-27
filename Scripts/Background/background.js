@@ -1,33 +1,67 @@
-import { darkModeStyles } from "./darkModeStyles.js";
+import getDarkModeStyles from "./getDarkModeStyles.js";
+import saveData from "./dataHandler.js";
+
+const messageTab = (sender, messageName, otherArguments) => {
+  chrome.tabs.sendMessage(sender.tab.id, { ...otherArguments, message: messageName });
+}
+
+const getCurrentTab = async () => {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      resolve(tabs[0]);
+    });
+  });
+}
 
 const messageFunctions = {
-    getDarkModeStyles: ({ sendResponse }) => {
-        sendResponse(darkModeStyles);
-    },
-    createNotification: ({ message, sender }) => {
-        chrome.tabs.sendMessage(sender.tab.id, { action: "createNotification", html: message.html });
-    }
+  getDarkModeStyles: ({ sendResponse }) => {
+      getDarkModeStyles().then((styles) => {
+        sendResponse(styles);
+      })
+  },
+  createNotification: ({ message, sender }) => {
+      messageTab(sender, "createNotification", { html: message.html, isNode: message.isNode });
+  },
+  saveData: async ({ message, sendResponse }) => {
+      const value = await saveData(message.action, message.key, message.value);
+      sendResponse(value);
+  },
+  openPopup: () => {
+      getCurrentTab().then((tab) => {
+        chrome.action.getPopup({ tabId: tab.id }, (popup) => {
+          if (popup) {
+            chrome.action.openPopup();
+          }
+        });
+      });
+  },
+  setTheme: ({ message, sender }) => {
+      messageTab(sender, "setTheme", { isDarkMode: message.isDarkMode, inputState: message.inputState });
+  }
 };
+const asyncMessageFunctions = [
+  "saveData",
+  "getDarkModeStyles"
+];
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    const messageFunction = messageFunctions[message.message];
-    if (messageFunction) {
-        messageFunction({ message, sender, sendResponse });
-    } else {
-        console.warn(`No handler for message: ${message.message}`);
-    }
-});
+  const messageFunction = messageFunctions[message.message];
+  if (!messageFunction) {
+    console.warn(`No handler for message: ${message.message}`);
+    return;
+  }
 
-// background.js
+  messageFunction({ message, sender, sendResponse });
+  if (asyncMessageFunctions.includes(message.message)) {
+    return true;
+  }
+});
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete') {
-    // Check if the active tab's URL is Google Classroom
     if (tab.url && tab.url.includes("classroom.google.com")) {
-      // Show the action button (popup) when on Google Classroom
       chrome.action.enable(tabId);
     } else {
-      // Disable the action button (popup) for other sites
       chrome.action.disable(tabId);
     }
   }
