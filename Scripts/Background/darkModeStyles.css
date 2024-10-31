@@ -501,11 +501,11 @@ div.XfQwid.lziZub.xd70xe.n0p5v.V8apv {
     color: white;
 }
 
-.notification {
+.notification-wrapper {
     background: var(--hover-dark);
 }
 
-.notification > button:hover {
+.notification-wrapper > button:hover {
     background: var(--hover-dark-2);
 }
 

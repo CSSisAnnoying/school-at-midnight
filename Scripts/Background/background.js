@@ -15,28 +15,28 @@ const getCurrentTab = async () => {
 
 const messageFunctions = {
   getDarkModeStyles: ({ sendResponse }) => {
-      getDarkModeStyles().then((styles) => {
-        sendResponse(styles);
-      })
+    getDarkModeStyles().then((styles) => {
+      sendResponse(styles);
+    })
   },
   createNotification: ({ message, sender }) => {
-      messageTab(sender, "createNotification", { html: message.html, isNode: message.isNode });
+    messageTab(sender, "createNotification", { html: message.html, isNode: message.isNode });
   },
   saveData: async ({ message, sendResponse }) => {
-      const value = await saveData(message.action, message.key, message.value);
-      sendResponse(value);
+    const value = await saveData(message.action, message.key, message.value);
+    sendResponse(value);
   },
   openPopup: () => {
-      getCurrentTab().then((tab) => {
-        chrome.action.getPopup({ tabId: tab.id }, (popup) => {
-          if (popup) {
-            chrome.action.openPopup();
-          }
-        });
+    getCurrentTab().then((tab) => {
+      chrome.action.getPopup({ tabId: tab.id }, (popup) => {
+        if (popup) {
+          chrome.action.openPopup();
+        }
       });
+    });
   },
   setTheme: ({ message, sender }) => {
-      messageTab(sender, "setTheme", { isDarkMode: message.isDarkMode, inputState: message.inputState });
+    messageTab(sender, "setTheme", { isDarkMode: message.isDarkMode, inputState: message.inputState });
   }
 };
 const asyncMessageFunctions = [
@@ -44,8 +44,10 @@ const asyncMessageFunctions = [
   "getDarkModeStyles"
 ];
 
+const linkName = "classroom.google.com";
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  const messageFunction = messageFunctions[message.message];
+  const messageFunction = messageFunctions[message.message];1
   if (!messageFunction) {
     console.warn(`No handler for message: ${message.message}`);
     return;
@@ -59,7 +61,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete') {
-    if (tab.url && tab.url.includes("classroom.google.com")) {
+    if (tab.url && tab.url.includes(linkName)) {
       chrome.action.enable(tabId);
     } else {
       chrome.action.disable(tabId);
@@ -69,10 +71,38 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 chrome.tabs.onActivated.addListener(activeInfo => {
   chrome.tabs.get(activeInfo.tabId, (tab) => {
-    if (tab.url && tab.url.includes("classroom.google.com")) {
+    if (tab.url && tab.url.includes(linkName)) {
       chrome.action.enable(activeInfo.tabId);
     } else {
       chrome.action.disable(activeInfo.tabId);
     }
   });
+});
+
+saveData("set", "isFirstVisit", true);
+chrome.tabs.onCreated.addListener(() => {
+  let count = 0;
+  chrome.tabs.query({}, (tabs) => {
+    tabs.forEach((tab) => {
+      if (tab.url && tab.url.includes(linkName)) {
+        count++;
+      }
+    });
+    saveData("set", "isFirstVisit", count < 2);
+  })
+});
+
+chrome.tabs.onRemoved.addListener(() => {
+  let count = 0;
+  chrome.tabs.query({}, (tabs) => {
+    tabs.forEach((tab) => {
+      if (tab.url && tab.url.includes(linkName)) {
+        count++;
+      }
+    })
+
+    if (count === 0) {
+      saveData("set", "isFirstVisit", true);
+    }
+  })
 });
