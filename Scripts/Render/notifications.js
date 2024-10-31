@@ -1,5 +1,5 @@
 (async () => {
-    async function waitForElement(selector) {
+    const waitForElement = async (selector) => {
         return new Promise((resolve) => {
             const check = () => {
                 const element = document.querySelector(selector);
@@ -13,9 +13,83 @@
         });
     }
 
+    const waitForElementRemoved = (el, callBack) => {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.removedNodes.length > 0 && Array.from(mutation.removedNodes).includes(el)) {
+                    observer.disconnect();
+                    callBack();
+                }
+            })
+        });
+
+        observer.observe(el.parentElement, { childList: true, subtree: true });
+    }
+
+    const getDescendants = (el) => {
+        const descendants = [];
+        Array.from(el.children).forEach((child) => {
+            descendants.push(child);
+            descendants.push(...getDescendants(child));
+        });
+        return descendants;
+    }
+
+    const setSizeToPx = (el) => {
+        const style = window.getComputedStyle(el);
+        const heightpx = parseInt(style.getPropertyValue("height"));
+        const widthpx = parseInt(style.getPropertyValue("width"));
+
+        const heightPercent = parseInt(el.style.height) / 100;
+        const widthPercent = parseInt(el.style.width) / 100;
+
+        el.style.setProperty("height", `${heightpx}px`);
+        el.style.setProperty("width", `${widthpx}px`);
+
+        const onResize = () => {
+            const parent = el.parentElement;
+            const parentStyle = window.getComputedStyle(parent);
+            const parentHeightpx = parseInt(parentStyle.getPropertyValue("height"));
+            const parentWidthpx = parseInt(parentStyle.getPropertyValue("width"));
+
+            const Newheightpx = heightPercent * parentHeightpx;
+            const Newwidthpx = widthPercent * parentWidthpx;
+
+            el.style.setProperty("height", `${Newheightpx}px`);
+            el.style.setProperty("width", `${Newwidthpx}px`);
+        }
+
+        window.addEventListener("resize", onResize);
+        waitForElementRemoved(el, () => {
+            window.removeEventListener("resize", onResize);
+        })
+    }
+
+    const getEl = (el, isNode) => {
+        if (isNode) {
+            return document.querySelector(el);
+        } else {
+            return el;
+        }
+    }
+
+    const getIsFirstVisit = async () => {
+        return new Promise((resolve, reject) => {
+            chrome.runtime.sendMessage({ message: "saveData", action: "get", key: "isFirstVisit" }, ((response) => {
+                resolve(response.isFirstVisit);
+            }));
+        });
+    }
+
+    const isFirstVisit = await getIsFirstVisit();
     chrome.runtime.onMessage.addListener((request) => {
         if (request.message === "createNotification") {
-            createNotification(request.html, request.isNode);
+            if (isFirstVisit) {
+                createNotification(request.html, request.isNode);
+            } else {
+                const node = getEl(request.html, request.isNode);
+                node.remove();
+            }
         }
     })
 
@@ -27,14 +101,13 @@
     const closeNotification = (notification) => {
         notification.style.setProperty("translate", "100%");
         notification.style.setProperty("opacity", "0");
+        getDescendants(notification).forEach((child) => {
+            setSizeToPx(child);
+        });
+        notification.style.setProperty("height", "0");
         notification.addEventListener("transitionend", (e) => {
-            if (e.propertyName === "translate") {
-                notification.style.setProperty("height", "0");
-                notification.addEventListener("transitionend", (e) => {
-                    if (e.propertyName === "height") {
-                        notification.remove();
-                    }
-                })
+            if (e.propertyName === "opacity") {
+                notification.remove();
             }
         });
     }
@@ -43,18 +116,17 @@
         const notification = document.createElement("div");
         notification.setAttribute("class", "notification");
         notification.innerHTML = `
-            <button aria-label="Close notification">X</button>
-            <img src="${chrome.runtime.getURL("Icons/128x128.png")}"></img>
-            <p></p>
+            <div class="notification-wrapper">
+                <button aria-label="Close notification">X</button>
+                <img src="${chrome.runtime.getURL("Icons/128x128.png")}"></img>
+                <p></p>
+            </div>
         `;
-        const p = notification.querySelector("p");
-        const button = notification.querySelector("button");
+        const wrapper = notification.querySelector(".notification-wrapper");
+        const p = wrapper.querySelector("p");
+        const button = wrapper.querySelector("button");
 
-        if (isNode) {
-            p.append(document.querySelector(html));
-        } else {
-            p.append(html);
-        }
+        p.append(getEl(html, isNode));
         notificationContainer.append(notification);
 
         setTimeout(() => {
