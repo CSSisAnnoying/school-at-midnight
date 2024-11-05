@@ -28,35 +28,40 @@
 
     const getDescendants = (el) => {
         const descendants = [];
-        Array.from(el.children).forEach((child) => {
+        [...el.children].forEach((child) => {
             descendants.push(child);
             descendants.push(...getDescendants(child));
         });
         return descendants;
     }
 
-    const setSizeToPx = (el) => {
+    const getElProperty = (el, property) => {
         const style = window.getComputedStyle(el);
-        const heightpx = parseInt(style.getPropertyValue("height"));
-        const widthpx = parseInt(style.getPropertyValue("width"));
+        return parseInt(style.getPropertyValue(property));
+    };
+
+    const setSizeToPx = (el) => {
+        const heightpx = getElProperty(el, "height");
+        const widthpx = getElProperty(el, "width");
 
         const heightPercent = parseInt(el.style.height) / 100;
         const widthPercent = parseInt(el.style.width) / 100;
 
-        el.style.setProperty("height", `${heightpx}px`);
-        el.style.setProperty("width", `${widthpx}px`);
+        const setElProperties = (height, width) => {
+            el.style.setProperty("height", `${height}px`);
+            el.style.setProperty("width", `${width}px`);
+        }
+        setElProperties(heightpx, widthpx);
 
         const onResize = () => {
             const parent = el.parentElement;
-            const parentStyle = window.getComputedStyle(parent);
-            const parentHeightpx = parseInt(parentStyle.getPropertyValue("height"));
-            const parentWidthpx = parseInt(parentStyle.getPropertyValue("width"));
+            const parentHeightpx = getElProperty(parent, "height");
+            const parentWidthpx = getElProperty(parent, "width");
 
             const Newheightpx = heightPercent * parentHeightpx;
             const Newwidthpx = widthPercent * parentWidthpx;
 
-            el.style.setProperty("height", `${Newheightpx}px`);
-            el.style.setProperty("width", `${Newwidthpx}px`);
+            setElProperties(Newheightpx, Newwidthpx);
         }
 
         window.addEventListener("resize", onResize);
@@ -98,18 +103,32 @@
     notificationContainer.setAttribute("class", "notifications");
     fader.append(notificationContainer);
 
-    const closeNotification = (notification) => {
-        notification.style.setProperty("translate", "100%");
-        notification.style.setProperty("opacity", "0");
-        getDescendants(notification).forEach((child) => {
-            setSizeToPx(child);
+    const slideDownNotification = (notification) => {
+        const removeFlexGap = () => {
+            const halfGap = getElProperty(notificationContainer, "gap") / 2;
+            notification.style.setProperty("margin-top", `${-halfGap}px`);
+            notification.style.setProperty("margin-bottom", `${-halfGap}px`);
+        }
+        removeFlexGap();
+        window.addEventListener("resize", removeFlexGap);
+        waitForElementRemoved(notification, () => {
+            window.removeEventListener("resize", removeFlexGap);
         });
+
         notification.style.setProperty("height", "0");
         notification.addEventListener("transitionend", (e) => {
             if (e.propertyName === "opacity") {
                 notification.remove();
             }
         });
+    };
+
+    const closeNotification = (notification) => {
+        notification.style.setProperty("transform", "translate(100%, -100%)");
+        notification.style.setProperty("opacity", "0");
+
+        getDescendants(notification).forEach(setSizeToPx);
+        slideDownNotification(notification);
     }
 
     const createNotification = (html, isNode) => {
@@ -130,18 +149,21 @@
         notificationContainer.append(notification);
 
         setTimeout(() => {
-            notification.style.setProperty("translate", "0");
+            notification.style.setProperty("transform", "translateX(0)");
             notification.style.setProperty("opacity", "1");
         }, 50);
 
         let timeOutId;
         timeOutId = setTimeout(() => {
             closeNotification(notification);
+            button.removeEventListener("click", onClick);
         }, 5000);
 
-        button.addEventListener("click", () => {
+        const onClick = () => {
             clearTimeout(timeOutId);
             closeNotification(notification);
-        });
+        }
+
+        button.addEventListener("click", onClick);
     }
 })()
