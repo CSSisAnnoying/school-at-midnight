@@ -7,7 +7,7 @@
 
     let isDarkMode = false;
 
-    async function darkModeHandler(action, newValue) {
+    const darkModeHandler = async (action, newValue) => {
         return new Promise((resolve, reject) => {
             chrome.runtime.sendMessage({ message: "saveData", action, key: "darkMode", value: newValue }, ((response) => {
                 if (action === "get") {
@@ -20,7 +20,7 @@
         });
     }
 
-    function createNotification(html, isNode) {
+    const createNotification = (html, isNode) => {
         isNode = isNode ? isNode : false;
         chrome.runtime.sendMessage({ message: "createNotification", html, isNode });
     }
@@ -85,7 +85,7 @@
         }
     }, 2000);
 
-    async function waitForElement(selector) {
+    const waitForElement = async (selector) => {
         return new Promise((resolve) => {
             const check = () => {
                 const element = document.querySelector(selector);
@@ -107,7 +107,7 @@
         darkModeStyleElement.textContent = response;
     })
 
-    function toggleTheme() {
+    const toggleTheme = () => {
         // if (themeSwitcher.getAttribute("disabled")) return;
         isDarkMode = !isDarkMode;
         darkModeHandler("set", isDarkMode);
@@ -126,7 +126,7 @@
         }
     });
 
-    function setTheme(isDarkMode, inputState) {
+    const setTheme = (isDarkMode, inputState) => {
         chrome.runtime.sendMessage({ message: "setTheme", isDarkMode, inputState });
     }
 

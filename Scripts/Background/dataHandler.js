@@ -1,4 +1,4 @@
-async function saveData(action, key, newValue = null) {
+const saveData = async (action, key, newValue = null) => {
     return new Promise((resolve, reject) => {
         action = action.toLowerCase();
         if (action === "set") {

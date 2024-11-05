@@ -2,11 +2,11 @@ const fader = document.createElement("div");
 fader.setAttribute("class", "fader");
 document.body.append(fader);
 
-function setTheme(isDarkMode, inputState) {
+const setTheme = (isDarkMode, inputState) => {
     chrome.runtime.sendMessage({ message: "setTheme", isDarkMode, inputState });
 }
 
-function runFadeAnimation(isDarkMode) {
+const runFadeAnimation = isDarkMode => {
     fader.style.setProperty("pointer-events", "all");
     fader.style.setProperty("background", isDarkMode ? "black" : "white");
 
