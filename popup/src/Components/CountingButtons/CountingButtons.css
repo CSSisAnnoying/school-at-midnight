@@ -1,0 +1,28 @@
+.counting-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.counter-button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+    background: var(--button-color);
+    transition: background 200ms ease-out, transform 200ms ease-out, filter 200ms ease-out;
+    color: white;
+}
+
+.counter-button:disabled {
+    filter: brightness(0.5);
+    pointer-events: none;
+}
+
+.counter-button:hover,
+.counter-button:focus-visible {
+    background: var(--button-hover);
+}

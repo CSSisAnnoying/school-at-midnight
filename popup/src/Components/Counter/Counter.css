@@ -1,0 +1,17 @@
+.counter-container {
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.counter-container > :first-child {
+    font-size: 1rem;
+    color: rgb(161, 161, 161);
+}
+
+.counter-container > .count {
+    font-size: 2.5rem;
+}

@@ -14,7 +14,8 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "./Popup/popup.html"
+    "default_popup": "/popup/build/index.html",
+    "default_title": "Settings"
   },
   "web_accessible_resources": [
     {
