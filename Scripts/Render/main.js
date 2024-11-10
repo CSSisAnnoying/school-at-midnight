@@ -138,7 +138,7 @@
         if (isDarkMode.oldValue === undefined) return;
         isDarkMode = isDarkMode.newValue;
 
-        setTheme(isDarkMode, "begin");
+        setTheme(isDarkMode, !(window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? "begin" : "end");
     });
 
     themeSwitcher.addEventListener("click", toggleTheme);

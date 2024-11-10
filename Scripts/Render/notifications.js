@@ -123,9 +123,16 @@
         });
     };
 
+    const slide = (notification, In) => {
+        const isAnimated = !(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+        if (isAnimated) {
+            notification.style.setProperty("transform", In ? "translateX(0)" : "translateX(100%)");
+        }
+        notification.style.setProperty("opacity", In ? "1" : "0");
+    }
+
     const closeNotification = (notification) => {
-        notification.style.setProperty("transform", "translate(100%, -100%)");
-        notification.style.setProperty("opacity", "0");
+        slide(notification, false);
 
         getDescendants(notification).forEach(setSizeToPx);
         slideDownNotification(notification);
@@ -149,8 +156,7 @@
         notificationContainer.append(notification);
 
         setTimeout(() => {
-            notification.style.setProperty("transform", "translateX(0)");
-            notification.style.setProperty("opacity", "1");
+            slide(notification, true);
         }, 50);
 
         let timeOutId;

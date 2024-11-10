@@ -26,3 +26,9 @@
 .counter-button:focus-visible {
     background: var(--button-hover);
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .counter-button {
+        transition: none;
+    }
+}

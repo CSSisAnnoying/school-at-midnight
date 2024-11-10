@@ -1,3 +1,12 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .counter-container {
     width: 100%;
     height: 50%;
@@ -13,5 +22,26 @@
 }
 
 .counter-container > .count {
+    font-size: 2.5rem;
+}
+
+.animated-counter {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.animated-digit {
+    transition: transform 300ms ease-in-out;
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn cubic-bezier(0.19, 1, 0.22, 1) 300ms forwards;
+}
+
+.animated-digit > span {
     font-size: 2.5rem;
 }
