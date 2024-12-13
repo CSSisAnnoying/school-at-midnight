@@ -47,7 +47,7 @@ const asyncMessageFunctions = [
 const linkName = "classroom.google.com";
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  const messageFunction = messageFunctions[message.message];1
+  const messageFunction = messageFunctions[message.message];
   if (!messageFunction) {
     console.warn(`No handler for message: ${message.message}`);
     return;

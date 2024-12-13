@@ -1,4 +1,4 @@
-const stylesURL = chrome.runtime.getURL("Scripts/Background/darkModeStyles.css");
+const stylesURL = chrome.runtime.getURL("src/CSS/darkmodeStyles.css");
 
 const getDarkModeStyles = async () => {
     return new Promise((resolve) => {

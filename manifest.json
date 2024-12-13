@@ -10,11 +10,11 @@
     "256": "Icons/256x256.png"
   },
   "background": {
-    "service_worker": "./Scripts/Background/background.js",
+    "service_worker": "src/JS/Background/background.js",
     "type": "module"
   },
   "action": {
-    "default_popup": "/popup/build/index.html",
+    "default_popup": "popup/build/index.html",
     "default_title": "Settings"
   },
   "web_accessible_resources": [
@@ -23,7 +23,7 @@
       "matches": ["https://classroom.google.com/*"]
     },
     {
-      "resources": ["Scripts/Background/darkModeStyles.css"],
+      "resources": ["src/CSS/darkModeStyles.css"],
       "matches": ["https://classroom.google.com/*"]
     }
   ],
@@ -33,13 +33,13 @@
         "https://classroom.google.com/*"
       ],
       "js": [
-        "Scripts/Render/main.js",
-        "Scripts/Render/themeSwitcher.js",
-        "Scripts/Render/fadeAnimation.js",
-        "Scripts/Render/notifications.js"
+        "src/JS/Content/main.js",
+        "src/JS/Content/themeSwitcher.js",
+        "src/JS/Content/fadeAnimation.js",
+        "src/JS/Content/notifications.js"
       ],
       "css": [
-        "Scripts/Render/miscellaneous.css"
+        "src/CSS/miscellaneous.css"
       ]
     }
   ],

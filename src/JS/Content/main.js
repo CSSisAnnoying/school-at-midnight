@@ -103,9 +103,9 @@
 
     const darkModeStyleElement = document.createElement("style");
     darkModeStyleElement.setAttribute("class", "dark-mode");
-    chrome.runtime.sendMessage({ message: "getDarkModeStyles" }, (response) => {
-        darkModeStyleElement.textContent = response;
-    })
+    chrome.runtime.sendMessage({ message: "getDarkModeStyles" }, (styles) => {
+        darkModeStyleElement.textContent = styles;
+    });
 
     const toggleTheme = () => {
         // if (themeSwitcher.getAttribute("disabled")) return;
