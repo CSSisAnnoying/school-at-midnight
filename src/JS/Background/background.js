@@ -79,30 +79,29 @@ chrome.tabs.onActivated.addListener(activeInfo => {
   });
 });
 
+const updateIsFirstVisit = (tabCreated) => {
+  chrome.tabs.query({}, (tabs) => {
+    let count = tabs.filter(tab => tab.url && tab.url.includes(linkName)).length;
+
+    let isFirstVisit;
+    if (!tabCreated) {
+      isFirstVisit = count == 0;
+      if (isFirstVisit) {
+        saveData("set", "isFirstVisit", true);
+      }
+    } else {
+      isFirstVisit = count < 2;
+      saveData("set", "isFirstVisit", isFirstVisit);
+    }
+
+  });
+}
+
 saveData("set", "isFirstVisit", true);
 chrome.tabs.onCreated.addListener(() => {
-  let count = 0;
-  chrome.tabs.query({}, (tabs) => {
-    tabs.forEach((tab) => {
-      if (tab.url && tab.url.includes(linkName)) {
-        count++;
-      }
-    });
-    saveData("set", "isFirstVisit", count < 2);
-  })
-});
+  updateIsFirstVisit(true);
+})
 
 chrome.tabs.onRemoved.addListener(() => {
-  let count = 0;
-  chrome.tabs.query({}, (tabs) => {
-    tabs.forEach((tab) => {
-      if (tab.url && tab.url.includes(linkName)) {
-        count++;
-      }
-    })
-
-    if (count === 0) {
-      saveData("set", "isFirstVisit", true);
-    }
-  })
+  updateIsFirstVisit(false);
 });
